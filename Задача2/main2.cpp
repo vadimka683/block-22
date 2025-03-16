@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void load(map<string, int>& queue) {
+void load(multimap<string, int>& queue) {
 	ifstream load("Queue.BIN", ios::binary);
 	if (!load.is_open()) {
 		cout << "Error load queue.\n";
@@ -26,7 +26,7 @@ void load(map<string, int>& queue) {
 	}
 }
 
-void save(map<string, int>& queue) {
+void save(multimap<string, int>& queue) {
 	ofstream save("Queue.BIN", ios::binary);
 	for (map<string, int>::iterator it = queue.begin(); it != queue.end(); it++) {
 		string surname = it->first;
@@ -36,25 +36,25 @@ void save(map<string, int>& queue) {
 	}
 }
 
-void print_queue(map<string, int>& queue) {
+void print_queue(multimap<string, int>& queue) {
 	for (const auto& It : queue) {
 		cout << It.first << "\n";
 	}
 }
 
-void pushback_queue(map<string, int>& queue, string& surname, int& count) {
+void pushback_queue(multimap<string, int>& queue, string& surname, int& count) {
 	count++;
 	queue.insert(make_pair(surname, count));
 }
 
-void next(map<string, int>& queue) {
+void next(multimap<string, int>& queue) {
 	map<string, int>::iterator itf = queue.begin();
 	cout << itf->first << "\n";
 	queue.erase(itf);
 }
 
 int main() {
-	map<string, int> queue;
+	multimap<string, int> queue;
 	int count_queue = 0;
 	while (true) {
 		cout << "Input command: ";
