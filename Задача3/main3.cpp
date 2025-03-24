@@ -8,16 +8,28 @@ bool check_Anagram(string& first, string& second) {
 	if (first.length() != second.length()) {
 		return false;
 	}
-	multimap<char, int> book;
+	map<char, int> book;
+	int count = 1;
 	for (int i = 0; i < first.length(); i++) {
-		book.insert(make_pair(first[i], i));
+		map<char, int>::iterator it = book.find(first[i]);
+		if (it == book.end()) {
+			book.insert(make_pair(first[i], count));
+		}
+		else {
+			it->second++;
+		}
 	}
 	for (int i = 0; i < second.length(); i++) {
-		multimap<char, int>::iterator it = book.find(second[i]);
+		map<char, int>::iterator it = book.find(second[i]);
 		if (it == book.end()) {
 			return false;
 		}
-		book.erase(it);
+		else if (it->second > 1) {
+			it->second--;
+		}
+		else {
+			book.erase(it);
+		}
 	}
 	return true;
 }
